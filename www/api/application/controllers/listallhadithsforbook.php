@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class ListAllHadithForBook extends CI_Controller {
+class ListAllHadithsForBook extends CI_Controller {
 
 	public function __construct(){
         parent::__construct();
@@ -22,7 +22,8 @@ class ListAllHadithForBook extends CI_Controller {
 	}
 
 	public function getHadithsForBook($title, $volume){
-		echo $this->HadithAPI_model->returnHadithsForBook($title, $volume);
+		$results = $this->HadithAPI_model->returnHadithsForBook($title, $volume);
+		echo json_encode($results);
 	}
 
 
