@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class ListAllHadithForBook extends CI_Controller {
+class ListAllBooksForCollection extends CI_Controller {
 
 	public function __construct(){
         parent::__construct();
@@ -9,20 +9,20 @@ class ListAllHadithForBook extends CI_Controller {
 
 	public function index(){
 		$title = (isset($_GET['title']) ? strtolower($_GET['title']) : null);
-		$volume = (isset($_GET['volume']) ? $_GET['volume'] : '1');
-		if ($title) $this->getHadithsForBook($title, $volume);
+		if ($title) $this->getBooksForCollection($title);
 		else {
 			echo json_encode(
 				array(
-					'Error Message' => 'No Book Title given',
+					'Error Message' => 'No Collection Title given',
 					'Example' => 'http://www.ehadith.com/api/index.php/ListAllHadithForBook?title=bukhari&volume=1'
 				)
 			);
 		}
 	}
 
-	public function getHadithsForBook($title, $volume){
-		echo $this->HadithAPI_model->returnHadithsForBook($title, $volume);
+	public function getBooksForCollection($title){
+		$results = $this->HadithAPI_model->returnBooksForCollection($title);
+		echo json_encode($results);
 	}
 
 
