@@ -9,8 +9,12 @@ class HadithAPI_model extends CI_Model {
 
 	public function returnHadithsForBook($title, $volume){
 
-		$q = $this->db->select("*")
-		   	->from('hadiths');
+		$q = $this->db->select("hadiths.id AS 'Hadith_id', hadiths.hadith_number AS 'Hadith_Number', hadiths.name AS 'Name', hadiths.narrator AS 'Narrator', hadiths.description AS 'Description'")
+		   	->from('hadiths')
+		   	->join('books', 'books.id = hadiths.book_id')
+		   	->join('collections', 'books.collection_id = collections.id')
+		   	->like('collections.name', $title)
+		   	->like('books.volume_number', $volume);
 
 		$result = $q->get()->result();
 		return $result;

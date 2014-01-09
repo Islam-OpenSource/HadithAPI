@@ -10,15 +10,14 @@ class ListAllHadithsForBook extends CI_Controller {
 	public function index(){
 		$title = (isset($_GET['title']) ? strtolower($_GET['title']) : null);
 		$volume = (isset($_GET['volume']) ? $_GET['volume'] : '1');
+		
 		if ($title) $this->getHadithsForBook($title, $volume);
-		else {
-			echo json_encode(
+		else echo json_encode(
 				array(
 					'Error Message' => 'No Book Title given',
 					'Example' => 'http://www.ehadith.com/api/index.php/ListAllHadithForBook?title=bukhari&volume=1'
 				)
 			);
-		}
 	}
 
 	public function getHadithsForBook($title, $volume){
